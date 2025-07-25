@@ -2,8 +2,17 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
+const cors = require("cors");
+require("dotenv").config();
+
+const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
 
 const app = express();
+
+// cors 문제를 해결하기 위해 npm cors 사용.
+// 위치 중요함.
+// 라우터 밑에 있으면 안됨. 여전히 에러 생김.
+app.use(cors());
 
 // request body를 객체 형태롤 받기 위해서 body-parser 사용
 // http request에 있는 payload값을 req.body에 넣어줌.
@@ -15,7 +24,7 @@ app.use("/api", indexRouter);
 
 const port = 5555;
 
-const mongoURI = `mongodb://localhost:27017/node-todo`;
+const mongoURI = MONGODB_URI_PROD;
 
 // useNewUrlParser - 옛날 형식 뿐만 아니라 요즘 형식도 잘 사용할 수 있도록
 mongoose
@@ -28,6 +37,6 @@ mongoose
   });
 
 // app 리스너 세팅
-app.listen(port, () => {
-  console.log(`server on ${port}`);
+app.listen(process.env.PORT || port, () => {
+  console.log(`server on`);
 });

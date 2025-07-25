@@ -1,4 +1,4 @@
-const Task = require("../model/task");
+const Task = require("../model/Task");
 
 // 기능 정의
 const taskController = {};
@@ -7,6 +7,8 @@ const taskController = {};
 taskController.createTask = async (req, res) => {
   try {
     // req.body에서 task와 isComplete값을 읽어옴
+    console.log("Received body:", req.body);
+
     const { task, isComplete } = req.body;
 
     // 모델을 불러와 req.body에서 받아온 task와 isComplete 값을 넣어 newTask 생성
@@ -44,9 +46,8 @@ taskController.updateTask = async (req, res) => {
       // required를 설정해두었기 때문에 빈문자열이나 null이 들어오는 걸 막아줌.
       runValidators: true,
     });
-
     // 해당 아이디의 데이터가 존재하지 않을 경우
-    if (!updatedTask) {
+    if (!updateTask) {
       return res.status(404).json({ message: "Task not found" });
     }
 
