@@ -9,10 +9,10 @@ taskController.createTask = async (req, res) => {
     // req.body에서 task와 isComplete값을 읽어옴
     console.log("Received body:", req.body);
 
-    const { task, isComplete } = req.body;
+    const { task, contents, isComplete } = req.body;
 
     // 모델을 불러와 req.body에서 받아온 task와 isComplete 값을 넣어 newTask 생성
-    const newTask = new Task({ task, isComplete });
+    const newTask = new Task({ task, contents, isComplete });
 
     await newTask.save();
     res.status(200).json({ status: "ok", data: newTask });

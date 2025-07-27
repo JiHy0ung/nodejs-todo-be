@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const taskSchema = Schema(
   {
     task: { type: String, required: true },
+    contents: { type: String },
     isComplete: { type: Boolean, required: true },
   },
   { timestamps: true }
