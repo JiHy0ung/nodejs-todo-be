@@ -17,7 +17,7 @@ taskController.createTask = async (req, res) => {
     await newTask.save();
     res.status(200).json({ status: "ok", data: newTask });
   } catch (err) {
-    res.status(400).json({ status: "failed", error: err });
+    res.status(400).json({ status: "failed", error: err.message });
   }
 };
 
@@ -30,7 +30,7 @@ taskController.getTask = async (req, res) => {
 
     res.status(200).json({ status: "ok", data: taskList });
   } catch (err) {
-    res.status(400).json({ status: "failed", error: err });
+    res.status(400).json({ status: "failed", error: err.message });
   }
 };
 
@@ -53,7 +53,7 @@ taskController.updateTask = async (req, res) => {
 
     res.status(200).json({ status: "ok", data: updateTask });
   } catch (err) {
-    res.status(400).json({ status: "failed", error: err });
+    res.status(400).json({ status: "failed", error: err.message });
   }
 };
 
@@ -64,7 +64,7 @@ taskController.deleteTask = async (req, res) => {
 
     res.status(200).json({ status: "ok", data: deleteTask });
   } catch (err) {
-    res.status(400).json({ status: "failed", error: err });
+    res.status(400).json({ status: "failed", error: err.message });
   }
 };
 
