@@ -44,9 +44,15 @@ userController.loginWithEmail = async (req, res) => {
         const token = user.generateToken();
         return res.status(200).json({ status: "Login Success", user, token });
       } else {
+        if (password.trim() === "") {
+          throw new Error("비밀번호를 입력해주세요.");
+        }
         throw new Error("틀린 비밀번호입니다.");
       }
     } else {
+      if (email.trim() === "") {
+        throw new Error("이메일을 입력해주세요.");
+      }
       throw new Error("가입되지 않은 이메일 정보입니다.");
     }
   } catch (err) {
