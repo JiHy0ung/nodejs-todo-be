@@ -9,6 +9,7 @@ const taskSchema = Schema(
     task: { type: String, required: true },
     contents: { type: String },
     isComplete: { type: Boolean, required: true },
+    author: { type: Schema.Types.ObjectId, required: true, ref: "User" }, // User 모델 아이디만 가져옴
   },
   { timestamps: true }
 );

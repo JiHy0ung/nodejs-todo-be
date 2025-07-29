@@ -10,9 +10,15 @@ taskController.createTask = async (req, res) => {
     console.log("Received body:", req.body);
 
     const { task, contents, isComplete } = req.body;
+    const { userId } = req;
 
     // 모델을 불러와 req.body에서 받아온 task와 isComplete 값을 넣어 newTask 생성
-    const newTask = new Task({ task, contents, isComplete });
+    const newTask = new Task({
+      task,
+      contents,
+      isComplete,
+      author: req.userId,
+    });
 
     await newTask.save();
     res.status(200).json({ status: "ok", data: newTask });
@@ -26,7 +32,7 @@ taskController.getTask = async (req, res) => {
   try {
     // Task 모델에서 taskList를 가져옴.(전체)
     // __v(버전 정보)를 빼고 보여줘라
-    const taskList = await Task.find({}).select("-__v");
+    const taskList = await Task.find({}).populate("author"); // 조인과 비슷하지만 DB에서 일어나는게 아니라 JS에서 일어나는 것.
 
     res.status(200).json({ status: "ok", data: taskList });
   } catch (err) {
